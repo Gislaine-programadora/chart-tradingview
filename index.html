@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gráfico TradingView com Troca de Ativos (Exemplo ETH)</title>
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+  <style>
+    body {
+      background-color: #121212;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #chart {
+      height: 600px;
+      width: 100%;
+      margin-top: 10px;
+    }
+    select {
+      padding: 8px 12px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: none;
+      background-color: #222;
+      color: #fff;
+      cursor: pointer;
+    }
+    label {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Gráfico TradingView - Troca de Ativos</h2>
+  <label for="assetSelector">Selecione o ativo:</label>
+  <select id="assetSelector">
+    <option value="BINANCE:ETHUSDT" selected>Ethereum (ETH/USDT)</option>
+    <option value="BINANCE:BTCUSDT">Bitcoin (BTC/USDT)</option>
+    <option value="BINANCE:ADAUSDT">Cardano (ADA/USDT)</option>
+    <option value="BINANCE:SOLUSDT">Solana (SOL/USDT)</option>
+  </select>
+
+  <div id="chart"></div>
+
+  <script>
+    let tradingViewWidget = null;
+
+    function initTradingView(symbol = "BINANCE:ETHUSDT") {
+      if (tradingViewWidget) {
+        tradingViewWidget.remove();
+      }
+      tradingViewWidget = new TradingView.widget({
+        container_id: "chart",
+        symbol: symbol,
+        interval: "60", // 1 hora
+        timezone: "Etc/UTC",
+        theme: "dark",
+        style: "1",
+        locale: "pt",
+        toolbar_bg: "#1e293b",
+        enable_publishing: false,
+        allow_symbol_change: true,
+        hide_side_toolbar: false,
+        withdateranges: true,
+        details: true,
+        hotlist: true,
+        calendar: true,
+        studies: [
+          "MACD@tv-basicstudies",
+          "RSI@tv-basicstudies"
+        ]
+      });
+    }
+
+    document.getElementById("assetSelector").addEventListener("change", function () {
+      initTradingView(this.value);
+    });
+
+    window.onload = function () {
+      initTradingView(); // Inicializa com ETH por padrão
+    };
+  </script>
+</body>
+</html>

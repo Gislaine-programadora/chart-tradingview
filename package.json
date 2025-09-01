@@ -1,0 +1,17 @@
+{
+  "name": "chart-tradingview",
+  "version": "1.0.0",
+  "description": "Real-time TradingView chart project",
+    "scripts": {
+    "main": "index.html",
+    "start": "python -m http.server 8000",
+     "dev": "npx serve"
+
+  },
+  "author": "gislaine-fullstack",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
+
